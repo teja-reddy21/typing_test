@@ -65,17 +65,30 @@ const TypingTest = () => {
     const input = e.target.value;
     setUserInput(input);
 
-    if (input.trim() === sentence.trim()) {
-      setIsCorrect(true);
-      const inputWords = input.trim().split(" ");
-      const sentenceWords = sentence.trim().split(" ");
-      const correctWords = inputWords.filter((word, index) => word === sentenceWords[index]);
+    const inputWords = input.trim().split(" ");
+  const sentenceWords = sentence.trim().split(" ");
 
-      setWordsTyped((prev) => prev + inputWords.length);
-      setAccuracy((correctWords.length / inputWords.length) * 100);
-    } else {
-      setIsCorrect(false);
+  let correctCount = 0;
+  inputWords.forEach((word, index) => {
+    if (word === sentenceWords[index]) {
+      correctCount++;
     }
+  });
+
+  // ✅ Update accuracy live
+  if (inputWords.length > 0) {
+    setAccuracy((correctCount / inputWords.length) * 100);
+  } else {
+    setAccuracy(100);
+  }
+
+  // ✅ Check if whole sentence is correct
+  if (input.trim() === sentence.trim()) {
+    setIsCorrect(true);
+    setWordsTyped((prev) => prev + inputWords.length);
+  } else {
+    setIsCorrect(false);
+  }
   };
 
   const handleNextSentence = () => {
