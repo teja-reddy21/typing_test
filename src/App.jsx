@@ -4,6 +4,7 @@ import Sidebar from "./components/Navbar"
 import TypingTest from "./components/TypingTest";
 import TypingPractice from "./components/TypingPractice";
 import TrickyKeys from "./components/TrickyKeys";
+import TrickyKeyPractice from "./components/TrickykeyPractice"
 import "./index.css";
 
 function App() {
@@ -18,6 +19,8 @@ function App() {
             <Route path="/" element={<TypingTest />} />
             <Route path="/practice" element={<TypingPractice />} />
             <Route path="/tricky" element={<TrickyKeys />} />
+              <Route path="/tricky-keys" element={<TrickyKeys />} />
+             <Route path="/practice/:key" element={<TrickyKeyPractice />} />
           </Routes>
         </div>
       </Router>
