@@ -71,10 +71,12 @@
   .content {
     margin-left: 0; /* no offset on small screens */
   }
+  
 }
 
 @media (min-width: 769px) {
   .content {
     margin-left: 220px; /* leave space for sidebar */
   }
+ 
 }

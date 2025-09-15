@@ -16,8 +16,8 @@ function App() {
         <Sidebar setDarkMode={setDarkMode} darkMode={darkMode} />
         <div className="content">
           <Routes>
-            <Route path="/" element={<TypingTest />} />
-            <Route path="/practice" element={<TypingPractice />} />
+            <Route path="/" element={<TypingTest darkMode={darkMode} />} />
+            <Route path="/practice" element={<TypingPractice  darkMode={darkMode}/>} />
             <Route path="/tricky" element={<TrickyKeys />} />
               <Route path="/tricky-keys" element={<TrickyKeys />} />
              <Route path="/practice/:key" element={<TrickyKeyPractice />} />

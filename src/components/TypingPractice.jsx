@@ -27,7 +27,7 @@ const sentences = {
   ],
 };
 
-const TypingPractice = () => {
+const TypingPractice = ({ darkMode }) => {
   const [level, setLevel] = useState("beginner");
   const [sentence, setSentence] = useState(getRandomSentence("beginner"));
   const [userInput, setUserInput] = useState("");
@@ -111,7 +111,7 @@ const TypingPractice = () => {
           fontSize: "24px",
           margin: "20px auto",
           maxWidth: "800px",
-          color: "#444",
+           color: darkMode ? "#ffffff" : "#333" ,
         }}
       >
         {sentence}

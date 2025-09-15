@@ -1,16 +1,25 @@
-import React from "react";
+// src/components/TrickyKeys.jsx
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const keys = ["a", "b", "c", "d", "e"]; // etc
+const keys = ["a", "b", "c", "d", "e"]; // extend if needed
 
 const TrickyKeys = () => {
   const navigate = useNavigate();
+  const [stats, setStats] = useState({});
 
-  const handlePracticeClick = (key) => {
-    navigate(`/practice/${key}`);
+  // Load stats from localStorage
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem("trickyKeysStats")) || {};
+    setStats(saved);
+  }, []);
+
+  // Clear all stats
+  const handleClearStats = () => {
+    localStorage.removeItem("trickyKeysStats");
+    setStats({});
   };
 
-  // ✅ Styles
   const containerStyle = {
     display: "flex",
     flexDirection: "column",
@@ -18,8 +27,10 @@ const TrickyKeys = () => {
     justifyContent: "center",
     minHeight: "100vh",
     textAlign: "center",
-    backgroundColor: "#f4f4f4",
-    padding: "20px",
+   
+    padding: "10px",
+ 
+    
   };
 
   const tableStyle = {
@@ -27,7 +38,7 @@ const TrickyKeys = () => {
     marginTop: "20px",
     width: "80%",
     maxWidth: "600px",
-    background: "#fff",
+    background: "#dc1919ff",
     boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
     borderRadius: "8px",
     overflow: "hidden",
@@ -55,13 +66,10 @@ const TrickyKeys = () => {
     cursor: "pointer",
   };
 
-  const buttonHover = {
-    background: "#0056b3",
-  };
-
   return (
     <div style={containerStyle}>
-      <h1>Practice Typing Your Tricky Keys</h1>
+      <h1 style={{color:"blue"}}>Practice Typing Your Tricky Keys</h1>
+
       <table style={tableStyle}>
         <thead>
           <tr>
@@ -72,29 +80,42 @@ const TrickyKeys = () => {
           </tr>
         </thead>
         <tbody>
-          {keys.map((key) => (
-            <tr key={key}>
-              <td style={tdStyle}>{key}</td>
-              <td style={tdStyle}>0%</td>
-              <td style={tdStyle}>0</td>
-              <td style={tdStyle}>
-                <button
-                  style={buttonStyle}
-                  onMouseOver={(e) =>
-                    (e.target.style.background = buttonHover.background)
-                  }
-                  onMouseOut={(e) =>
-                    (e.target.style.background = buttonStyle.background)
-                  }
-                  onClick={() => handlePracticeClick(key)}
-                >
-                  Practice
-                </button>
-              </td>
-            </tr>
-          ))}
+          {keys.map((key) => {
+            const stat = stats[key] || { accuracy: 0, pressed: 0 };
+            return (
+              <tr key={key}>
+                <td style={tdStyle}>{key}</td>
+                <td style={tdStyle}>{stat.accuracy.toFixed(1)}%</td>
+                <td style={tdStyle}>{stat.pressed}</td>
+                <td style={tdStyle}>
+                  <button
+                    style={buttonStyle}
+                    onClick={() => navigate(`/practice/${key}`)}
+                  >
+                    Practice
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
+
+      <button
+        onClick={handleClearStats}
+        style={{
+          marginTop: "20px",
+          padding: "10px 20px",
+          fontSize: "16px",
+          backgroundColor: "#dc3545",
+          color: "white",
+          border: "none",
+          borderRadius: "6px",
+          cursor: "pointer",
+        }}
+      >
+        🗑 Clear Stats
+      </button>
     </div>
   );
 };

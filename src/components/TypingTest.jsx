@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
 // Sentences per level
-const sentencesByLevel = {
+const sentencesByLevel ={
   Beginner: [
     "The quick brown fox jumps over the lazy dog.",
     "Typing is fun and easy to learn.",
@@ -17,10 +17,10 @@ const sentencesByLevel = {
     "Asynchronous functions and promises streamline complex workflows in modern JavaScript.",
     "State management and side effects are essential concepts in React and Redux applications.",
     "Mastering frontend performance optimization requires in-depth understanding of rendering cycles and network strategies.",
-  ],
+  ]
 };
 
-const TypingTest = () => {
+const TypingTest =({ darkMode }) => {
   const [difficulty, setDifficulty] = useState("Beginner");
   const [duration, setDuration] = useState(60); // in seconds
   const [sentence, setSentence] = useState("");
@@ -104,7 +104,7 @@ const TypingTest = () => {
   };
 
   return (
-    <div style={{ textAlign: "center", padding: "40px" }}>
+    <div style={{ textAlign: "center", padding: "40px", }}>
       <h1>Typing Speed Test</h1>
 
       {/* Difficulty and Time Selectors */}
@@ -136,7 +136,7 @@ const TypingTest = () => {
 
       {started && (
         <>
-          <h2 style={{ fontSize: "24px", margin: "20px auto", maxWidth: "700px", color: "#333" }}>
+          <h2 style={{ fontSize: "24px", margin: "20px auto", maxWidth: "700px",  color: darkMode ? "#ffffff" : "#333" }}>
             {sentence}
           </h2>
 
